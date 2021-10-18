@@ -57,31 +57,39 @@
 
           <!-- Tabs -->
           <ul class="flex flex-wrap mb-4">
+            <!-- login tab link -->
             <li class="flex-auto text-center">
               <a
-                class="
-                  block
-                  rounded
-                  py-3
-                  px-4
-                  transition
-                  hover:text-white
-                  text-white
-                  bg-blue-600
-                "
+                class="block rounded py-3 px-4 transition"
                 href="#"
-                >Login</a
+                @click.prevent="tab = 'login'"
+                :class="{
+                  'hover:text-white text-white bg-blue-600': tab === 'login',
+                  'hover:text-blue-600': tab === 'register',
+                }"
               >
+                Login
+              </a>
             </li>
+            <!-- Register tab link -->
             <li class="flex-auto text-center">
-              <a class="block rounded py-3 px-4 transition" href="#"
+              <a
+                class="block rounded py-3 px-4 transition"
+                href="#"
+                @click.prevent="tab = 'register'"
+                :class="{
+                  'hover:text-white text-white bg-blue-600': tab === 'register',
+                  'hover:text-blue-600': tab === 'login',
+                }"
                 >Register</a
               >
             </li>
           </ul>
 
           <!-- Login Form -->
-          <form>
+          <form v-show="tab === 'login'">
+            <!-- toglinmg the vivibility of the form -->
+
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
@@ -140,7 +148,8 @@
             </button>
           </form>
           <!-- Registration Form -->
-          <form>
+          <!-- toglinmg the vivibility of the form -->
+          <form v-show="tab === 'register'">
             <!-- Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Name</label>
@@ -294,14 +303,21 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
+// import { mapMutations } from 'vuex';
 
 export default {
   name: 'Auth',
+  data() {
+    return {
+      tab: 'login',
+    };
+  },
   computed: {
-    AuthModalShow() {
-      return this.$store.getters.AuthModalShow;
-    },
+    ...mapState(['AuthModalShow']),
+    // AuthModalShow() {
+    //   return this.$store.getters.AuthModalShow;
+    // },
   },
   methods: {
     ...mapMutations(['toggleAuthModal']),

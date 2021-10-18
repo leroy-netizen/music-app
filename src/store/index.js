@@ -10,10 +10,8 @@ export default createStore({
     },
   },
   getters: {
-    AuthModalShow: (state) => state.AuthModalShow,
+    // AuthModalShow: (state) => state.AuthModalShow,
   },
-  // actions: {
-  // },
-  // modules: {
-  // },
+  actions: {},
+  modules: {},
 });
