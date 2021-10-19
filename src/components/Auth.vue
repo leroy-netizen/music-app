@@ -337,7 +337,7 @@ export default {
         password: 'required|min:3|max:100',
         confirm_password: 'confirmed:@password',
         country: 'required|notIncluded:Egypt',
-        tos: '',
+        tos: 'required',
       },
     };
   },
