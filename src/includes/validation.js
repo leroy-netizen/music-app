@@ -9,6 +9,7 @@ import {
   min,
   max,
   alpha_spaces as alphaSpaces,
+  email,
 } from '@vee-validate/rules';
 
 /*
@@ -27,5 +28,6 @@ export default {
     defineRule('min', min);
     defineRule('max', max);
     defineRule('alphaSpaces', alphaSpaces);
+    defineRule('email', email);
   },
 };
