@@ -4,6 +4,8 @@ import {
   defineRule,
   ErrorMessage,
 } from 'vee-validate';
+// importing rules
+
 import {
   required,
   min,
@@ -13,6 +15,7 @@ import {
   min_value as minValue,
   max_value as maxValue,
   confirmed,
+  not_one_of as notIncluded,
 } from '@vee-validate/rules';
 
 /*
@@ -27,6 +30,8 @@ export default {
     app.component('VeeField', VeeField);
     app.component('ErrorMessage', ErrorMessage);
 
+    // //registering rules
+
     defineRule('required', required);
     defineRule('min', min);
     defineRule('max', max);
@@ -35,5 +40,6 @@ export default {
     defineRule('min_value', minValue);
     defineRule('max_value', maxValue);
     defineRule('confirmed', confirmed);
+    defineRule('notIncluded', notIncluded);
   },
 };

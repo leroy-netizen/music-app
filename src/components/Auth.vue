@@ -264,7 +264,9 @@
             <!-- Country -->
             <div class="mb-3">
               <label class="inline-block mb-2">Country</label>
-              <select
+              <vee-field
+                as="select"
+                name="country"
                 class="
                   block
                   w-full
@@ -278,18 +280,23 @@
                   rounded
                 "
               >
-                <option value="USA">USA</option>
-                <option value="Mexico">Mexico</option>
-                <option value="Germany">Germany</option>
-              </select>
+                <option value="Kenya">Kenya</option>
+                <option value="Uganda">Uganda</option>
+                <option value="Tanzania">Tanzania</option>
+                <option value="Egypt">Egypt</option>
+              </vee-field>
+              <ErrorMessage class="text-red-600" name="country" />
             </div>
             <!-- TOS -->
             <div class="mb-3 pl-6">
-              <input
+              <vee-field
                 type="checkbox"
+                name="tos"
+                value="1"
                 class="w-4 h-4 float-left -ml-6 mt-1 rounded"
               />
               <label class="inline-block">Accept terms of service</label>
+              <ErrorMessage class="text-red-600 block" name="tos" />
             </div>
             <button
               type="submit"
@@ -329,7 +336,7 @@ export default {
         age: 'required|min_value:18|max_value:80',
         password: 'required|min:3|max:100',
         confirm_password: 'confirmed:@password',
-        country: '',
+        country: 'required|notIncluded:Egypt',
         tos: '',
       },
     };
