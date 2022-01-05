@@ -47,38 +47,49 @@
           <div class="flex justify-between items-center pb-4">
             <p class="text-2xl font-bold">Your Account</p>
             <!-- Modal Close Button -->
-            <div class="modal-close cursor-pointer z-50">
+            <div
+              class="modal-close cursor-pointer z-50"
+              @click.prevent="toggleAuthModal"
+            >
               <i class="fas fa-times"></i>
             </div>
           </div>
 
           <!-- Tabs -->
           <ul class="flex flex-wrap mb-4">
+            <!-- login tab link -->
             <li class="flex-auto text-center">
               <a
-                class="
-                  block
-                  rounded
-                  py-3
-                  px-4
-                  transition
-                  hover:text-white
-                  text-white
-                  bg-blue-600
-                "
+                class="block rounded py-3 px-4 transition"
                 href="#"
-                >Login</a
+                @click.prevent="tab = 'login'"
+                :class="{
+                  'hover:text-white text-white bg-blue-600': tab === 'login',
+                  'hover:text-blue-600': tab === 'register',
+                }"
               >
+                Login
+              </a>
             </li>
+            <!-- Register tab link -->
             <li class="flex-auto text-center">
-              <a class="block rounded py-3 px-4 transition" href="#"
+              <a
+                class="block rounded py-3 px-4 transition"
+                href="#"
+                @click.prevent="tab = 'register'"
+                :class="{
+                  'hover:text-white text-white bg-blue-600': tab === 'register',
+                  'hover:text-blue-600': tab === 'login',
+                }"
                 >Register</a
               >
             </li>
           </ul>
 
           <!-- Login Form -->
-          <form>
+          <form v-show="tab === 'login'">
+            <!-- toglinmg the vivibility of the form -->
+
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
@@ -137,12 +148,18 @@
             </button>
           </form>
           <!-- Registration Form -->
-          <form>
+          <!-- togling the visibility of the form -->
+          <vee-form
+            v-show="tab === 'register'"
+            :validation-schema="schema"
+            @submit="register"
+          >
             <!-- Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Name</label>
-              <input
+              <vee-field
                 type="text"
+                name="name"
                 class="
                   block
                   w-full
@@ -155,14 +172,18 @@
                   focus:outline-none focus:border-black
                   rounded
                 "
-                placeholder="Enter Name"
+                placeholder="Enter Your Name"
               />
+
+              <ErrorMessage class="text-red-600" name="name" />
             </div>
+
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
-              <input
+              <vee-field
                 type="email"
+                name="email"
                 class="
                   block
                   w-full
@@ -177,12 +198,14 @@
                 "
                 placeholder="Enter Email"
               />
+              <ErrorMessage class="text-red-600" name="email" />
             </div>
             <!-- Age -->
             <div class="mb-3">
               <label class="inline-block mb-2">Age</label>
-              <input
+              <vee-field
                 type="number"
+                name="age"
                 class="
                   block
                   w-full
@@ -196,12 +219,14 @@
                   rounded
                 "
               />
+              <ErrorMessage class="text-red-600" name="age" />
             </div>
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <input
+              <vee-field
                 type="password"
+                name="password"
                 class="
                   block
                   w-full
@@ -216,12 +241,14 @@
                 "
                 placeholder="Password"
               />
+              <ErrorMessage class="text-red-600" name="pasword" />
             </div>
             <!-- Confirm Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Confirm Password</label>
-              <input
+              <vee-field
                 type="password"
+                name="confirm_password"
                 class="
                   block
                   w-full
@@ -236,11 +263,14 @@
                 "
                 placeholder="Confirm Password"
               />
+              <ErrorMessage class="text-red-600" name="confirm_password" />
             </div>
             <!-- Country -->
             <div class="mb-3">
               <label class="inline-block mb-2">Country</label>
-              <select
+              <vee-field
+                as="select"
+                name="country"
                 class="
                   block
                   w-full
@@ -254,18 +284,23 @@
                   rounded
                 "
               >
-                <option value="USA">USA</option>
-                <option value="Mexico">Mexico</option>
-                <option value="Germany">Germany</option>
-              </select>
+                <option value="Kenya">Kenya</option>
+                <option value="Uganda">Uganda</option>
+                <option value="Tanzania">Tanzania</option>
+                <option value="Egypt">Egypt</option>
+              </vee-field>
+              <ErrorMessage class="text-red-600" name="country" />
             </div>
             <!-- TOS -->
             <div class="mb-3 pl-6">
-              <input
+              <vee-field
                 type="checkbox"
+                name="tos"
+                value="1"
                 class="w-4 h-4 float-left -ml-6 mt-1 rounded"
               />
               <label class="inline-block">Accept terms of service</label>
+              <ErrorMessage class="text-red-600 block" name="tos" />
             </div>
             <button
               type="submit"
@@ -283,7 +318,7 @@
             >
               Submit
             </button>
-          </form>
+          </vee-form>
         </div>
       </div>
     </div>
@@ -291,11 +326,35 @@
 </template>
 
 <script>
+import { mapMutations, mapState } from 'vuex';
+// import { mapMutations } from 'vuex';
+
 export default {
   name: 'Auth',
+  data() {
+    return {
+      tab: 'login',
+      schema: {
+        name: 'required|min:3|max:100|alpha_spaces',
+        email: 'required|min:3|max:100|email',
+        age: 'required|min_value:18|max_value:80',
+        password: 'required|min:3|max:100',
+        confirm_password: 'confirmed:@password',
+        country: 'required|notIncluded:Egypt',
+        tos: 'required',
+      },
+    };
+  },
   computed: {
-    AuthModalShow() {
-      return this.$store.getters.AuthModalShow;
+    ...mapState(['AuthModalShow']),
+    // AuthModalShow() {
+    //   return this.$store.getters.AuthModalShow;
+    // },
+  },
+  methods: {
+    ...mapMutations(['toggleAuthModal']),
+    register(values) {
+      console.log(values);
     },
   },
 };
