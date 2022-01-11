@@ -8,6 +8,11 @@
     "ecmaVersion": 13,
     "sourceType": "module"
   },
-  "plugins": ["vue"],
-  "rules": {}
+  "plugins": ["vue", "prettier"],
+  "rules": {
+    //   "semi": ["error", "never"],
+    //   "quotes": ["error", "single"],
+    //   "prettier/prettier": "error"
+    //
+  }
 }
