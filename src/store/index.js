@@ -36,6 +36,16 @@ export default createStore({
 
       commit('toggleAuth');
     },
+    async login({ commit }, payload) {
+      await auth.signInWithEmailAndPassword(payload.email, payload.password);
+      commit('toggleAuth');
+    },
+    init_login({ commit }) {
+      const user = auth.currentUser;
+      if (user) {
+        commit('toggleAuth');
+      }
+    },
   },
   modules: {},
 });
