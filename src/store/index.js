@@ -50,6 +50,9 @@ export default createStore({
       await auth.signOut();
 
       commit('toggleAuth');
+    // if (payload.route.meta.requiresAuth) {
+      //   payload.router.push({ name: 'Home' });
+      // }
     },
   },
   modules: {},
