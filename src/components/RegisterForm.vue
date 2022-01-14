@@ -230,6 +230,7 @@ export default {
 
       this.reg_alert_variant = 'bg-green-500';
       this.reg_alert_message = 'account successfuly created';
+      window.location.reload();
     },
   },
 };
