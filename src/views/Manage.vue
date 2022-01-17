@@ -110,9 +110,23 @@ export default {
   components: {
     AppUpload,
   },
+  data() {
+    return {
+      songs: [],
+    };
+  },
   async created() {
-    await songsCollection.where('uid', '==', auth.currentUser.uid)
+    const snapshot = await songsCollection.where('uid', '==', auth.currentUser.uid)
       .get();
+
+    snapshot.forEach((document) => {
+      const song = {
+        ...document.data(),
+        docID: document.id, // makes sure we update the correct document
+      };
+
+      this.songs.push(song);
+    });
   },
   // beforeRouteLeave(to, from, next) {
   //   this.$refs.upload.cancelUploads();
