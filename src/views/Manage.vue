@@ -13,7 +13,7 @@
           </div>
           <div class="p-6">
             <!-- Composition Items -->
-                <composition-item v-for="song in songs" :key="song.Docid"/>
+                <composition-item v-for="song in songs" :key="song.Docid" :song ="song" />
           </div>
         </div>
       </div>
