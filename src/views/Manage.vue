@@ -70,11 +70,11 @@ export default {
       this.songs.push(song);
     },
     updateUnsavedFlag(value) {
-      this.updateUnsavedFlag = value;
+      this.unsavedFlag = value;
     },
   },
   beforeRouteLeave(to, from, next) {
-    if (!this.updateUnsavedFlag) {
+    if (!this.unsavedFlag) {
       next();
     } else {
       // eslint-disable-next-line no-alert, no-restricted-globals
