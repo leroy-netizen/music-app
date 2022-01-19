@@ -31,7 +31,9 @@ export default createStore({
     updatePosition(state) {
       state.seek = helper.formatTime(state.sound.seek());
       state.duration = helper.formatTime(state.sound.duration());
-      state.playerProgress = `${(state.sound.seek() / state.sound.duration()) * 100}%`;
+      state.playerProgress = `${
+        (state.sound.seek() / state.sound.duration()) * 100
+      }%`;
     },
   },
   getters: {
@@ -77,7 +79,7 @@ export default createStore({
       await auth.signOut();
 
       commit('toggleAuth');
-    // if (payload.route.meta.requiresAuth) {
+      // if (payload.route.meta.requiresAuth) {
       //   payload.router.push({ name: 'Home' });
       // }
     },
@@ -115,6 +117,23 @@ export default createStore({
         });
       }
     },
+    updateSeek({ state, dispatch }, payload) {
+      if (!state.sound.playing) {
+        return;
+      }
+
+      const { x, width } = payload.currentTarget.getBoundingClientRect();
+      // Document = 2000, Timeline = 1000, click = 1000, Distance = 500
+      const clickX = payload.clientX - x;
+      const percentage = clickX / width;
+      const seconds = state.sound.duration() * percentage;
+
+      state.sound.seek(seconds);
+
+      state.sound.once('seek', () => {
+        dispatch('progress');
+      });
+    },
   },
-  modules: {},
+  // modules: {},
 });
