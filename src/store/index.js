@@ -8,7 +8,7 @@ export default createStore({
     AuthModalShow: false,
     userLoggedIn: false,
     currentSong: {},
-    sounds: {},
+    sound: {},
     seek: '00:00',
     duration: '00:00',
   },
@@ -30,7 +30,6 @@ export default createStore({
     updatePosition(state) {
       state.seek = helper.formatTime(state.sound.seek());
       state.duration = helper.formatTime(state.sound.duration());
-
     },
   },
   getters: {
@@ -41,7 +40,7 @@ export default createStore({
       }
 
       return false;
-    }
+    },
   },
   actions: {
     async register({ commit }, payload) {
