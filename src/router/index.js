@@ -11,11 +11,11 @@ const routes = [
     path: '/',
     component: Home,
   },
-  {
-    name: 'About',
-    path: '/about',
-    component: About,
-  },
+  // {
+  //   name: 'About',
+  //   path: '/about',
+  //   component: About,
+  // },
   {
     name: 'Manage',
     // alias: '/Manage',
@@ -25,7 +25,7 @@ const routes = [
     },
     component: Manage,
     beforeEnter: (to, from, next) => {
-      console.log('Manage Route Guard');
+      // console.log('Manage Route Guard');
       next();
     },
   },
