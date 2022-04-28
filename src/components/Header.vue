@@ -8,7 +8,7 @@
         :to="{ name: 'Home' }"
         exact-active-class="no-active"
       >
-        MZIKI
+        MUSIC
       </router-link>
 
       <div class="flex flex-grow items-center">
