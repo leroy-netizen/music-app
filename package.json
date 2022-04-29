@@ -41,7 +41,7 @@
     "eslint-plugin-vue": "^7.19.1",
     "prettier": "2.6.2",
     "typescript": "~3.9.3",
-    "vue-cli-plugin-tailwind": "^2.0.6",
+    "vue-cli-plugin-tailwind": "2.2.18",
     "vue-jest": "^5.0.0-0"
   }
 }
