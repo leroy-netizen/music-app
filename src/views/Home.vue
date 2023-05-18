@@ -10,8 +10,7 @@
         <div class="text-white main-header-content">
           <h1 class="font-bold text-5xl mb-5">MZIKI HUB!</h1>
           <p class="w-full md:w-8/12 mx-auto">
-           Unleash the rhythm of your soul with our captivating music app.
-           Immerse yourself in a harmonious blend of curated playlists tailored to your unique taste. 
+           Unleash the rhythm of your soul with our captivating music app. 
            Let the melodies transport you to new realms as you discover hidden musical gems.
            Elevate your music experience and let the app become your ultimate sonic companion.
           </p>
